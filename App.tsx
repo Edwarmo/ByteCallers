@@ -18,7 +18,7 @@ export default function App() {
     failedAttempts: 0,
   };
 
-  const [currentView, setCurrentView] = useState<'public' | 'login' | 'app'>('login'); // Mostrar login
+  const [currentView, setCurrentView] = useState<'public' | 'login' | 'app'>('public'); // Mostrar landing page
   const [auth, setAuth] = useState<{ user: User | null; token: string | null; isAuthenticated: boolean }>({
     user: mockUser, // Usuario mock
     token: 'mock-token',
