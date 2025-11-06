@@ -1,0 +1,32 @@
+{
+  "features": [
+    {
+      "id": "customer-journey",
+      "title": "Automatización del Customer Journey",
+      "description": "Mapeamos el viaje de tu cliente y automatizamos los puntos de contacto clave con IA, asegurando una comunicación coherente y proactiva en cada etapa.",
+      "icon": "🗺️",
+      "imageUrl": "https://via.placeholder.com/300x200/3498db/ffffff?text=Customer+Journey"
+    },
+    {
+      "id": "business-intelligence",
+      "title": "Business Intelligence Conversacional",
+      "description": "Transformamos millones de minutos de llamadas en datos estructurados. Analizamos el sentimiento y detectamos patrones para insights accionables.",
+      "icon": "📉",
+      "imageUrl": "https://via.placeholder.com/300x200/2ecc71/ffffff?text=BI+Conversacional"
+    },
+    {
+      "id": "back-office",
+      "title": "Back Office Inteligente",
+      "description": "Automatizamos tareas repetitivas de back office derivadas de interacciones con clientes, reduciendo errores y liberando tiempo de tu equipo.",
+      "icon": "⚙️",
+      "imageUrl": "https://via.placeholder.com/300x200/9b59b6/ffffff?text=Back+Office"
+    },
+    {
+      "id": "cloud-integration",
+      "title": "Integración en la Nube",
+      "description": "Nuestras soluciones se integran perfectamente con tu ecosistema tecnológico actual (CRM, ERP, etc.) con modelos de servicio flexibles y escalables.",
+      "icon": "🔗",
+      "imageUrl": "https://via.placeholder.com/300x200/e67e22/ffffff?text=Cloud+Integration"
+    }
+  ]
+}

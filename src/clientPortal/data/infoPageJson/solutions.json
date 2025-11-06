@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ai-agents",
+    "label": "Atención Automática",
+    "icon": "🤖",
+    "title": "Chatbots y Voicebots Inteligentes",
+    "description": "Chatbots en web, WhatsApp y redes sociales que atienden consultas frecuentes. Voicebots para llamadas de bajo nivel como consultas de saldo, horarios y seguimiento de pedidos. Disponibilidad 24/7 con reducción del tiempo de espera."
+  },
+  {
+    "id": "assistants",
+    "label": "Asistentes de Agente",
+    "icon": "🎙️",
+    "title": "IA que Potencia a tus Operadores",
+    "description": "IA que escucha llamadas en tiempo real y sugiere respuestas rápidas. Transcripción automática para evitar tomar notas. Sugerencias de productos basadas en el historial del cliente."
+  },
+  {
+    "id": "analytics",
+    "label": "Análisis de Sentimiento",
+    "icon": "📊",
+    "title": "Detección de Emociones y Calidad",
+    "description": "Detección en tiempo real de emociones (enojo, frustración, satisfacción) para alertar supervisores. Evaluación automática de calidad y métricas de satisfacción sin depender de encuestas."
+  },
+  {
+    "id": "integration",
+    "label": "Integración Total",
+    "icon": "🔗",
+    "title": "Plataforma Omnicanal Unificada",
+    "description": "Conecta todos tus canales de comunicación en una sola plataforma inteligente que centraliza la información del cliente."
+  }
+]

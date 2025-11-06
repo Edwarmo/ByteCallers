@@ -1,0 +1,46 @@
+/* Fondo nocturno con gradiente y estrellas */
+.night-sky-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, #1a0b2e 0%, #2d1b4e 30%, #4a1d6f 70%, #1a0b2e 100%);
+  z-index: -1;
+}
+
+.star {
+  position: fixed;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 2px #fff;
+  animation: twinkle linear infinite;
+  z-index: -1;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Generar estrellas con diferentes tamaños y posiciones */
+.star:nth-child(1) { width: 2px; height: 2px; top: 10%; left: 20%; animation-duration: 3s; }
+.star:nth-child(2) { width: 1px; height: 1px; top: 20%; left: 40%; animation-duration: 4s; }
+.star:nth-child(3) { width: 3px; height: 3px; top: 30%; left: 60%; animation-duration: 2s; }
+.star:nth-child(4) { width: 2px; height: 2px; top: 40%; left: 80%; animation-duration: 5s; }
+.star:nth-child(5) { width: 1px; height: 1px; top: 50%; left: 10%; animation-duration: 3.5s; }
+.star:nth-child(6) { width: 2px; height: 2px; top: 60%; left: 30%; animation-duration: 4.5s; }
+.star:nth-child(7) { width: 3px; height: 3px; top: 70%; left: 50%; animation-duration: 2.5s; }
+.star:nth-child(8) { width: 1px; height: 1px; top: 80%; left: 70%; animation-duration: 3.8s; }
+.star:nth-child(9) { width: 2px; height: 2px; top: 15%; left: 90%; animation-duration: 4.2s; }
+.star:nth-child(10) { width: 3px; height: 3px; top: 25%; left: 15%; animation-duration: 2.8s; }
+.star:nth-child(11) { width: 1px; height: 1px; top: 35%; left: 35%; animation-duration: 5.5s; }
+.star:nth-child(12) { width: 2px; height: 2px; top: 45%; left: 55%; animation-duration: 3.2s; }
+.star:nth-child(13) { width: 3px; height: 3px; top: 55%; left: 75%; animation-duration: 4.8s; }
+.star:nth-child(14) { width: 1px; height: 1px; top: 65%; left: 95%; animation-duration: 2.2s; }
+.star:nth-child(15) { width: 2px; height: 2px; top: 75%; left: 25%; animation-duration: 3.6s; }
+.star:nth-child(16) { width: 3px; height: 3px; top: 85%; left: 45%; animation-duration: 5.2s; }
+.star:nth-child(17) { width: 1px; height: 1px; top: 12%; left: 65%; animation-duration: 2.9s; }
+.star:nth-child(18) { width: 2px; height: 2px; top: 22%; left: 85%; animation-duration: 4.1s; }
+.star:nth-child(19) { width: 3px; height: 3px; top: 32%; left: 5%; animation-duration: 3.3s; }
+.star:nth-child(20) { width: 1px; height: 1px; top: 42%; left: 25%; animation-duration: 5.8s; }

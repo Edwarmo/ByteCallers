@@ -1,0 +1,23 @@
+[
+  {
+    "company": "BancoDigital",
+    "industry": "Banca",
+    "challenge": "Consultas de saldo saturaban líneas",
+    "result": "85% consultas automatizadas",
+    "description": "Voicebots atienden consultas de saldo, movimientos y horarios. Agentes humanos se enfocan en créditos y productos complejos."
+  },
+  {
+    "company": "TelecomPlus",
+    "industry": "Telecomunicaciones",
+    "challenge": "Frustración de clientes no detectada",
+    "result": "40% mejora en satisfacción",
+    "description": "Análisis de sentimiento en tiempo real alerta supervisores cuando detecta frustración, permitiendo intervención inmediata."
+  },
+  {
+    "company": "EcommerceMax",
+    "industry": "E-commerce",
+    "challenge": "Seguimiento de pedidos colapsa WhatsApp",
+    "result": "90% consultas resueltas por chatbot",
+    "description": "Chatbot en WhatsApp Business resuelve seguimientos, cambios y devoluciones. Escalamiento inteligente a agentes cuando es necesario."
+  }
+]

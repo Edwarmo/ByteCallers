@@ -1,0 +1,185 @@
+# 🤖 ByteCallers - Plataforma de Call Center con IA
+
+Plataforma moderna de call center potenciada con Inteligencia Artificial, desarrollada en React Native con Expo y TypeScript.
+
+## ✨ Características Principales
+
+### 🏠 Landing Page Empresarial
+- **Home**: Hero con CTA, estadísticas y beneficios clave
+- **Soluciones IA**: Chatbots, Voicebots, Asistentes y Análisis de Sentimiento
+- **Casos de Éxito**: Empresas reales con resultados medibles
+- **Tecnología IA**: Demos interactivos de capacidades
+- **Testimonios**: Clientes satisfechos con la plataforma
+- **Contacto**: Formulario para solicitar demos
+
+### 🎨 Diseño Moderno
+- **Modo Oscuro**: Detección automática del tema del sistema
+- **Glassmorphism**: Efectos de vidrio transparente en menús
+- **Responsive**: Adaptado para desktop, tablet y móvil
+- **Menú Hamburguesa**: Sidebar animado con toggle en móvil (60% pantalla)
+- **Emojis**: Iconografía visual en toda la navegación
+
+### 🔐 Sistema de Autenticación
+- Login para agentes con validación
+- Dashboard de agente con métricas en tiempo real
+- Gestión de sesiones y roles
+
+### 📊 Datos Centralizados
+- Información en archivos JSON separados (`src/infoPageJson/`)
+- Fácil actualización de contenido sin tocar código
+- Estructura escalable y mantenible
+
+## 🛠️ Stack Tecnológico
+
+- **Frontend**: React Native + Expo
+- **Lenguaje**: TypeScript
+- **Estilos**: StyleSheet con soporte de modo oscuro
+- **Estado**: React Hooks (useState, useColorScheme)
+- **Componentes**: Arquitectura modular reutilizable
+- **Datos**: JSON estáticos para contenido
+
+## 📦 Instalación
+
+```bash
+git clone https://github.com/Edwarmo/Byte-callers.git
+cd Byte-callers/Byte-callers
+npm install
+npm start
+```
+
+## 🚀 Comandos
+
+```bash
+npm start          # Iniciar desarrollo
+npm run web        # Ejecutar en web
+npm run android    # Ejecutar en Android
+npm run ios        # Ejecutar en iOS
+```
+
+## 🏗️ Estructura del Proyecto
+
+```
+src/
+├── clientPortal/
+│   ├── components/       # Componentes de landing
+│   │   ├── Home.tsx
+│   │   ├── Solutions.tsx
+│   │   ├── Enterprise.tsx
+│   │   ├── AIShowcase.tsx
+│   │   ├── Testimonials.tsx
+│   │   ├── ContactForm.tsx
+│   │   ├── Navigation.tsx
+│   │   └── Footer.tsx
+│   └── views/
+│       └── LandingPage.tsx
+├── pages/               # Páginas principales
+│   ├── LoginPage.tsx
+│   └── CallCenterPage.tsx
+├── infoPageJson/        # Datos en JSON
+│   ├── solutions.json
+│   ├── enterprise.json
+│   ├── aiShowcase.json
+│   └── testimonials.json
+├── shared/
+│   └── ui/             # Componentes compartidos
+│       ├── Card.tsx
+│       ├── Button.tsx
+│       ├── Input.tsx
+│       └── Modal.tsx
+├── business/           # Lógica de negocio
+├── types/             # Definiciones TypeScript
+└── utils/             # Utilidades
+
+```
+
+## 🎯 Navegación
+
+### Secciones Públicas
+- 🏠 **Inicio**: Hero, stats y beneficios principales
+- 🤖 **Soluciones IA**: Automatización, asistentes, análisis
+- 🏢 **Empresas**: Casos de éxito con métricas reales
+- 🚀 **Tecnología**: Demos de voicebots, chatbots, IA
+- ⭐ **Testimonios**: Clientes satisfechos
+- 📞 **Contacto**: Formulario de solicitud de demo
+
+### Sistema Interno
+- 🔐 **Login**: Acceso para agentes
+- 📊 **Dashboard**: Panel con métricas del agente
+
+## 🌙 Modo Oscuro
+
+El sistema detecta automáticamente el tema del dispositivo y aplica:
+- Fondos: `#0f172a` / `#1e293b`
+- Textos: `#e2e8f0` / `#94a3b8`
+- Cards: Fondo oscuro con transparencias
+- Menú: Glassmorphism con blur
+
+## 📱 Responsive Design
+
+### Desktop (>768px)
+- Menú horizontal con emojis
+- Layout de múltiples columnas
+- Hover effects
+
+### Mobile (<768px)
+- Menú hamburguesa con animación toggle (X)
+- Sidebar lateral 60% de pantalla
+- Overlay oscuro semitransparente
+- Layout vertical optimizado
+
+## 🎨 Paleta de Colores
+
+### Modo Claro
+- Principal: `#3498db` (Azul)
+- Fondo: `#f8fafc` (Gris claro)
+- Texto: `#0f172a` (Azul oscuro)
+- Secundario: `#64748b` (Gris)
+
+### Modo Oscuro
+- Principal: `#60a5fa` (Azul claro)
+- Fondo: `#0f172a` (Azul muy oscuro)
+- Texto: `#e2e8f0` (Gris claro)
+- Secundario: `#94a3b8` (Gris medio)
+
+## 📊 Métricas Destacadas
+
+- **80%** de consultas automatizadas
+- **40%** reducción de costos operacionales
+- **24/7** disponibilidad ininterrumpida
+- **65%** reducción en tiempo de respuesta (caso real)
+
+## 🔧 Personalización
+
+### Actualizar Contenido
+Edita los archivos JSON en `src/infoPageJson/`:
+- `solutions.json` - Soluciones de IA
+- `enterprise.json` - Casos de éxito
+- `aiShowcase.json` - Demos de tecnología
+- `testimonials.json` - Testimonios de clientes
+
+### Agregar Nuevas Secciones
+1. Crear componente en `src/clientPortal/components/`
+2. Agregar tipo en `Navigation.tsx`
+3. Registrar en `LandingPage.tsx`
+4. Actualizar menú con emoji
+
+## 🤝 Contribuir
+
+1. Fork el proyecto
+2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit cambios (`git commit -m 'Agregar nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+MIT License - ByteCallers 2025
+
+## 👥 Contacto
+
+- **Email**: info@bytecallers.com
+- **GitHub**: [Edwarmo/Byte-callers](https://github.com/Edwarmo/Byte-callers)
+
+---
+
+Desarrollado con ❤️ usando React Native + IA
