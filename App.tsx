@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import './App.css';
-import './src/styles/scrollbar.css';
-import './src/styles/nightsky.css';
+import './src/infrastructure/ui/styles/scrollbar.css';
+import './src/infrastructure/ui/styles/nightsky.css';
 import { StatusBar } from 'expo-status-bar';
-import LandingPage from './src/clientPortal/views/LandingPage';
-import { LoginPage } from './src/pages/LoginPage';
-import { CallCenterPage } from './src/pages/call/CallCenterPage';
-import { User } from './src/business/entities/user/model';
+import LandingPage from './src/infrastructure/ui/pages/public/LandingPage';
+import { LoginPage } from './src/infrastructure/ui/pages/auth/LoginPage';
+import { CallCenterPage } from './src/infrastructure/ui/pages/app/CallCenterPage';
+import { User } from './src/core/domain/entities/User';
 
 export default function App() {
   // Mock user para desarrollo del dashboard
@@ -18,7 +18,7 @@ export default function App() {
     failedAttempts: 0,
   };
 
-  const [currentView, setCurrentView] = useState<'public' | 'login' | 'app'>('login'); // Mostrar landing page
+  const [currentView, setCurrentView] = useState<'public' | 'login' | 'app'>('public');
   const [auth, setAuth] = useState<{ user: User | null; token: string | null; isAuthenticated: boolean }>({
     user: mockUser, // Usuario mock
     token: 'mock-token',
