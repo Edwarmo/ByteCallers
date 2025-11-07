@@ -18,6 +18,17 @@ type Section = 'home' | 'solutions' | 'enterprise' | 'ai-tech' | 'testimonials' 
 const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   const [currentSection, setCurrentSection] = useState<Section>('home');
 
+  const renderSection = () => {
+    switch (currentSection) {
+      case 'home': return <Home />;
+      case 'solutions': return <Solutions />;
+      case 'enterprise': return <Enterprise />;
+      case 'ai-tech': return <AIShowcase />;
+      case 'testimonials': return <Testimonials />;
+      case 'contact': return <ContactForm />;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Navigation 
@@ -26,12 +37,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         onNavigate={onNavigate}
       />
       <ScrollView style={styles.content}>
-        <Home />
-        <Solutions />
-        <Enterprise />
-        <AIShowcase />
-        <Testimonials />
-        <ContactForm />
+        {renderSection()}
         <Footer />
       </ScrollView>
     </View>
@@ -41,7 +47,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: 'transparent',
   },
   content: {
     flex: 1,
