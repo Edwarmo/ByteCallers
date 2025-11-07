@@ -2,6 +2,22 @@
 
 Plataforma moderna de call center potenciada con Inteligencia Artificial, desarrollada en React Native con Expo y TypeScript.
 
+## 🚀 Inicio Rápido
+
+```bash
+# Clonar repositorio
+git clone https://github.com/Edwarmo/Byte-callers.git
+cd Byte-callers
+
+# Instalar dependencias
+npm install
+
+# Iniciar aplicación
+npm start
+```
+
+Abre http://localhost:8081 en tu navegador.
+
 ## ✨ Características Principales
 
 ### 🏠 Landing Page Empresarial
@@ -38,20 +54,10 @@ Plataforma moderna de call center potenciada con Inteligencia Artificial, desarr
 - **Componentes**: Arquitectura modular reutilizable
 - **Datos**: JSON estáticos para contenido
 
-## 📦 Instalación
+## 💻 Comandos Disponibles
 
 ```bash
-git clone https://github.com/Edwarmo/Byte-callers.git
-cd Byte-callers/Byte-callers
-npm install
-npm start
-```
-
-## 🚀 Comandos
-
-```bash
-npm start          # Iniciar desarrollo
-npm run web        # Ejecutar en web
+npm start          # Iniciar desarrollo (web)
 npm run android    # Ejecutar en Android
 npm run ios        # Ejecutar en iOS
 ```
