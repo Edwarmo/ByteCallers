@@ -62,40 +62,38 @@ npm run android    # Ejecutar en Android
 npm run ios        # Ejecutar en iOS
 ```
 
-## 🏗️ Estructura del Proyecto
+## 🏗️ Estructura del Proyecto (Arquitectura Hexagonal)
 
 ```
 src/
-├── clientPortal/
-│   ├── components/       # Componentes de landing
-│   │   ├── Home.tsx
-│   │   ├── Solutions.tsx
-│   │   ├── Enterprise.tsx
-│   │   ├── AIShowcase.tsx
-│   │   ├── Testimonials.tsx
-│   │   ├── ContactForm.tsx
-│   │   ├── Navigation.tsx
-│   │   └── Footer.tsx
-│   └── views/
-│       └── LandingPage.tsx
-├── pages/               # Páginas principales
-│   ├── LoginPage.tsx
-│   └── CallCenterPage.tsx
-├── infoPageJson/        # Datos en JSON
-│   ├── solutions.json
-│   ├── enterprise.json
-│   ├── aiShowcase.json
-│   └── testimonials.json
-├── shared/
-│   └── ui/             # Componentes compartidos
-│       ├── Card.tsx
-│       ├── Button.tsx
-│       ├── Input.tsx
-│       └── Modal.tsx
-├── business/           # Lógica de negocio
-├── types/             # Definiciones TypeScript
-└── utils/             # Utilidades
-
+├── core/
+│   ├── domain/              # Capa de dominio
+│   │   ├── entities/        # Entidades de negocio
+│   │   ├── ports/           # Interfaces (repositories, services)
+│   │   ├── types/           # Tipos de dominio
+│   │   └── value-objects/   # Objetos de valor
+│   └── application/
+│       ├── usecases/        # Casos de uso
+│       └── dto/             # Data Transfer Objects
+├── infrastructure/
+│   ├── adapters/
+│   │   ├── repositories/    # Implementaciones de repositorios
+│   │   ├── services/        # Servicios externos
+│   │   ├── controllers/     # Controladores
+│   │   └── models/          # Modelos de datos
+│   └── ui/
+│       ├── pages/           # Páginas (public, auth, app)
+│       ├── components/      # Componentes UI
+│       │   ├── landing/     # Landing page
+│       │   ├── features/    # Features específicos
+│       │   ├── shared/      # Compartidos
+│       │   └── forms/       # Formularios
+│       ├── hooks/           # Custom hooks
+│       └── styles/          # Estilos globales
+└── shared/
+    ├── config/              # Configuración
+    ├── utils/               # Utilidades
+    └── constants/           # Constantes
 ```
 
 ## 🎯 Navegación
