@@ -1,4 +1,4 @@
-import { User, LoginCredentials, AuthState } from '../../types/Auth';
+import { User, LoginCredentials, AuthState } from '../../../core/domain/types/Auth';
 import { StorageUtils } from '../../../shared/utils/storage';
 
 export class AuthModel {

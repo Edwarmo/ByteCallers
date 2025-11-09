@@ -1,7 +1,8 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { useChatbot, CallType } from '../../hooks/useChatbot';
-import { registerChatbotCallback, CallInfo } from '../../../adapters/services/APIButtonController';
+import { registerChatbotCallback } from '../../../adapters/services/APIButtonController';
+import type { CallInfo } from '../../../adapters/services/APIButtonController';
 
 export const AIAssistant: React.FC = () => {
   const [callInfo, setCallInfo] = useState<CallInfo | null>(null);

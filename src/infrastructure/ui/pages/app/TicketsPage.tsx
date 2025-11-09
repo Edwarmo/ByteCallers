@@ -2,7 +2,7 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { User } from '../../../../core/domain/entities/User';
 import { AIAssistant } from '../../components/features/AIAssistant';
-import { APIButtonController } from '../../../adapters/services/APIButtonController';
+import { services } from '../../../ServiceContainer';
 import { SessionWarningModal } from '../../components/shared/SessionWarningModal';
 
 interface TicketsPageProps {
@@ -95,7 +95,7 @@ export const TicketsPage: React.FC<TicketsPageProps> = ({ user, onBack, onLogout
         customerData: 'Información no disponible'
       };
 
-      APIButtonController.sendCallInfoToChatbot({
+      services.buttons.sendCallInfo({
         callId: callId,
         phoneNumber: call.phoneNumber,
         type: call.type,

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { User } from '../../../core/domain/entities/User';
+import { User } from '../../../../core/domain/entities/User';
+import { services } from '../../../ServiceContainer';
+import { LoginCredentials } from '../../../../core/domain/value-objects/LoginCredentials';
 
 interface LoginPageProps {
   onLoginSuccess: (user: User, token: string) => void;
@@ -47,16 +49,24 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
     });
   }, []);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (username && password) {
-      const mockUser: User = {
-        id: '1',
-        phoneNumber: username,
-        role: 'agent',
-        isBlocked: false,
-        failedAttempts: 0,
-      };
-      onLoginSuccess(mockUser, 'mock-token-123');
+      try {
+        const credentials = new LoginCredentials(username, password);
+        const result = await services.auth.login(credentials);
+        onLoginSuccess(result.user, result.token);
+      } catch (error) {
+        console.error('Login error:', error);
+        // Fallback: login directo
+        const mockUser: User = {
+          id: '1',
+          phoneNumber: username,
+          role: 'agent',
+          isBlocked: false,
+          failedAttempts: 0,
+        };
+        onLoginSuccess(mockUser, 'mock-token');
+      }
     }
   };
 

@@ -20,21 +20,6 @@ Abre http://localhost:8081 o https://byte-callers.vercel.app/ en tu navegador.
 
 ## ✨ Características Principales
 
-### 🏠 Landing Page Empresarial
-- **Home**: Hero con CTA, estadísticas y beneficios clave
-- **Soluciones IA**: Chatbots, Voicebots, Asistentes y Análisis de Sentimiento
-- **Casos de Éxito**: Empresas reales con resultados medibles
-- **Tecnología IA**: Demos interactivos de capacidades
-- **Testimonios**: Clientes satisfechos con la plataforma
-- **Contacto**: Formulario para solicitar demos
-
-### 🎨 Diseño Moderno
-- **Modo Oscuro**: Detección automática del tema del sistema
-- **Glassmorphism**: Efectos de vidrio transparente en menús
-- **Responsive**: Adaptado para desktop, tablet y móvil
-- **Menú Hamburguesa**: Sidebar animado con toggle en móvil (60% pantalla)
-- **Emojis**: Iconografía visual en toda la navegación
-
 ### 🔐 Sistema de Autenticación
 - Login para agentes con validación
 - Dashboard de agente con métricas en tiempo real
@@ -110,13 +95,6 @@ src/
 - 🔐 **Login**: Acceso para agentes
 - 📊 **Dashboard**: Panel con métricas del agente
 
-## 🌙 Modo Oscuro
-
-El sistema detecta automáticamente el tema del dispositivo y aplica:
-- Fondos: `#0f172a` / `#1e293b`
-- Textos: `#e2e8f0` / `#94a3b8`
-- Cards: Fondo oscuro con transparencias
-- Menú: Glassmorphism con blur
 
 ## 📱 Responsive Design
 
@@ -145,12 +123,6 @@ El sistema detecta automáticamente el tema del dispositivo y aplica:
 - Texto: `#e2e8f0` (Gris claro)
 - Secundario: `#94a3b8` (Gris medio)
 
-## 📊 Métricas Destacadas
-
-- **80%** de consultas automatizadas
-- **40%** reducción de costos operacionales
-- **24/7** disponibilidad ininterrumpida
-- **65%** reducción en tiempo de respuesta (caso real)
 
 ## 🔧 Personalización
 
@@ -175,15 +147,5 @@ Edita los archivos JSON en `src/infoPageJson/`:
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Abre un Pull Request
 
-## 📄 Licencia
-
-MIT License - ByteCallers 2025
-
-## 👥 Contacto
-
-- **Email**: info@bytecallers.com
-- **GitHub**: [Edwarmo/Byte-callers](https://github.com/Edwarmo/Byte-callers)
-
----
 
 Desarrollado con ❤️ usando React Native + IA
