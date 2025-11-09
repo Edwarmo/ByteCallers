@@ -1,4 +1,4 @@
-import { ButtonType } from './Utils/useButtonsForVSR';
+import { ButtonType } from '../../ui/hooks/useButtonsForVSR';
 
 /**
  * Controlador API para gestionar botones desde el servidor o IA

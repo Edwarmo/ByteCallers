@@ -1,5 +1,5 @@
 import { AuthModel } from '../models/AuthModel';
-import { LoginCredentials, User } from '../../types/Auth';
+import { LoginCredentials, User } from '../../../core/domain/types/Auth';
 import { validatePhoneNumber, validatePassword } from '../../../shared/utils/validation';
 
 export class AuthController {

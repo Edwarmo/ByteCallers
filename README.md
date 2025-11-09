@@ -6,8 +6,8 @@ Plataforma moderna de call center potenciada con Inteligencia Artificial, desarr
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/Edwarmo/Byte-callers.git
-cd Byte-callers
+git clone https://github.com/Edwarmo/ByteCallers.git
+cd ByteCallers
 
 # Instalar dependencias
 npm install
@@ -16,7 +16,7 @@ npm install
 npm start
 ```
 
-Abre http://localhost:8081 en tu navegador.
+Abre http://localhost:8081 o https://byte-callers.vercel.app/ en tu navegador.
 
 ## ✨ Características Principales
 
