@@ -1,10 +1,17 @@
+/* ========================================
+   ESTILOS GLOBALES COMPARTIDOS
+   ======================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 html, body {
   overflow-x: hidden;
   height: 100%;
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(180deg, #1a0b2e 0%, #2d1b4e 30%, #4a1d6f 70%, #1a0b2e 100%);
-  background-attachment: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 }
 
 #root {
@@ -12,6 +19,7 @@ html, body {
   position: relative;
 }
 
+/* Estrellas animadas */
 body::before {
   content: '';
   position: fixed;
@@ -36,6 +44,45 @@ body::before {
 @keyframes twinkle {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
+}
+
+/* Botones compartidos */
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Inputs compartidos */
+input, textarea {
+  font-family: inherit;
+  outline: none;
+}
+
+/* Transiciones suaves */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 /* === Custom Scrollbar for PC === */

@@ -1,6 +1,6 @@
-import { Ticket, TicketCategory, TicketStatus, TicketStats, TicketHistoryEntry } from '../../types/Ticket';
+import { Ticket, TicketCategory, TicketStatus, TicketStats, TicketHistoryEntry } from '../../../core/domain/types/Ticket';
 import { StorageUtils } from '../../../shared/utils/storage';
-import { TicketFactory } from '../../core/application/usecases/tickets/TicketFactory';
+import { TicketFactory } from '../../../core/domain/entities/TicketFactory';
 
 export class TicketModel {
   private static tickets: Ticket[] = [];

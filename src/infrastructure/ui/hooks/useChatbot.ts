@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { services } from '../../ServiceContainer';
 
 export type CallType = 'Ventas' | 'Soporte Técnico' | 'Reclamación';
 
@@ -40,7 +41,7 @@ export const useChatbot = () => {
     setMessages(prev => [...prev, botMessage]);
   }, []);
 
-  const sendMessage = useCallback((text: string) => {
+  const sendMessage = useCallback(async (text: string) => {
     if (!text.trim()) return;
 
     const userMessage: Message = {
@@ -53,6 +54,7 @@ export const useChatbot = () => {
     setMessages(prev => [...prev, userMessage]);
     setInputText('');
 
+    // Usar servicio de IA (mock por ahora)
     setTimeout(() => {
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),

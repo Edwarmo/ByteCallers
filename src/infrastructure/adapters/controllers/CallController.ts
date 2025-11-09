@@ -1,30 +1,47 @@
-import { CallModel } from '../models/CallModel';
 import { Call } from '../../../core/domain/entities/Call';
+import { services } from '../../ServiceContainer';
 
 export class CallController {
-  private callModel: CallModel;
+  constructor() {}
 
-  constructor() {
-    this.callModel = new CallModel();
+  async handleIncomingCall(phoneNumber: string, description?: string): Promise<Call> {
+    const call: Call = {
+      id: Date.now().toString(),
+      phoneNumber,
+      timestamp: new Date(),
+      type: 'Ventas',
+      status: 'active',
+      duration: 0,
+      aiConfidence: 50,
+      urgency: 'low',
+      description
+    };
+    await services.repositories.calls.save(call);
+    return call;
   }
 
-  handleIncomingCall(phoneNumber: string, description?: string): Call {
-    return this.callModel.addCall(phoneNumber, description);
+  async getAllCalls(): Promise<Call[]> {
+    return await services.repositories.calls.findAll();
   }
 
-  getAllCalls(): Call[] {
-    return this.callModel.getCalls();
+  async acceptCall(callId: string): Promise<void> {
+    const call = await services.repositories.calls.findById(callId);
+    if (call) {
+      call.status = 'active';
+      await services.repositories.calls.update(call);
+    }
   }
 
-  acceptCall(callId: string): void {
-    this.callModel.updateCallStatus(callId, 'active');
+  async completeCall(callId: string): Promise<void> {
+    const call = await services.repositories.calls.findById(callId);
+    if (call) {
+      call.status = 'completed';
+      await services.repositories.calls.update(call);
+    }
   }
 
-  completeCall(callId: string): void {
-    this.callModel.updateCallStatus(callId, 'completed');
-  }
-
-  getCallsByType(type: Call['type']): Call[] {
-    return this.callModel.getCalls().filter(call => call.type === type);
+  async getCallsByType(type: Call['type']): Promise<Call[]> {
+    const allCalls = await services.repositories.calls.findAll();
+    return allCalls.filter(call => call.type === type);
   }
 }

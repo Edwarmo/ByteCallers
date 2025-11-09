@@ -1,4 +1,5 @@
-import { User, LoginCredentials } from '../../../domain/entities/User';
+import { User } from '../../../domain/entities/User';
+import { LoginCredentials } from '../../../domain/value-objects/LoginCredentials';
 
 export interface IAuthRepository {
   login(credentials: LoginCredentials): Promise<{ success: boolean; message: string; user?: User; token?: string }>;

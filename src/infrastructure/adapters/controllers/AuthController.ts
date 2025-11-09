@@ -1,48 +1,35 @@
-import { AuthModel } from '../models/AuthModel';
-import { LoginCredentials, User } from '../../../core/domain/types/Auth';
-import { validatePhoneNumber, validatePassword } from '../../../shared/utils/validation';
+import { User } from '../../../core/domain/types/Auth';
+import { LoginCredentials } from '../../../core/domain/value-objects/LoginCredentials';
+import { LoginUseCase } from '../../../core/application/usecases/auth/LoginUseCase';
+import { IUserRepository } from '../../../core/domain/ports/repositories/IUserRepository';
 
 export class AuthController {
-  static async handleLogin(credentials: LoginCredentials): Promise<{ success: boolean; message: string; user?: User; token?: string }> {
-    // Validar formato de teléfono
-    const phoneValidation = validatePhoneNumber(credentials.phoneNumber);
-    if (!phoneValidation.isValid) {
-      return { success: false, message: phoneValidation.message };
-    }
+  constructor(
+    private loginUseCase: LoginUseCase,
+    private userRepository: IUserRepository
+  ) {}
 
-    // Validar contraseña
-    const passwordValidation = validatePassword(credentials.password);
-    if (!passwordValidation.isValid) {
-      return { success: false, message: passwordValidation.message };
-    }
-
-    return await AuthModel.login(credentials);
-  }
-
-  static async handleLogout(): Promise<void> {
-    await AuthModel.logout();
-  }
-
-  static async getCurrentUser(): Promise<User | null> {
-    return await AuthModel.getCurrentUser();
-  }
-
-  static async registerUser(phoneNumber: string, password: string, role: 'agent' | 'supervisor' | 'admin' = 'agent'): Promise<{ success: boolean; message: string }> {
-    const phoneValidation = validatePhoneNumber(phoneNumber);
-    if (!phoneValidation.isValid) {
-      return { success: false, message: phoneValidation.message };
-    }
-
-    const passwordValidation = validatePassword(password);
-    if (!passwordValidation.isValid) {
-      return { success: false, message: passwordValidation.message };
-    }
-
+  async handleLogin(phoneNumber: string, password: string): Promise<{ success: boolean; message: string; user?: User; token?: string }> {
     try {
-      await AuthModel.createUser(phoneNumber, password, role);
-      return { success: true, message: 'Usuario registrado exitosamente' };
-    } catch (error) {
-      return { success: false, message: 'Error al registrar usuario' };
+      const credentials = new LoginCredentials(phoneNumber, password);
+      const result = await this.loginUseCase.execute(credentials);
+      return { success: true, message: 'Login exitoso', user: result.user, token: result.token };
+    } catch (error: any) {
+      return { success: false, message: error.message || 'Error en login' };
     }
+  }
+
+  async handleLogout(): Promise<void> {
+    // Implementar logout use case
+  }
+
+  async getCurrentUser(): Promise<User | null> {
+    // Implementar get current user use case
+    return null;
+  }
+
+  async registerUser(phoneNumber: string, password: string, role: 'agent' | 'supervisor' | 'admin' = 'agent'): Promise<{ success: boolean; message: string }> {
+    // Implementar register use case
+    return { success: false, message: 'Not implemented' };
   }
 }

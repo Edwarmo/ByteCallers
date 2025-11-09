@@ -1,9 +1,5 @@
 # 🎭 Arquitectura del Sistema - ByteCallers
 
-## 📋 Descripción General
-
-ByteCallers es una plataforma de call center con IA que utiliza una arquitectura modular y escalable, separando claramente el portal público del sistema interno.
-
 ## 🏗️ Arquitectura de Componentes
 
 ### 1. **Portal Público (Landing Page)**
@@ -47,14 +43,6 @@ src/shared/ui/
 ├── Modal.tsx          # Modales
 ├── Layout.tsx         # Layout base
 └── Loader.tsx         # Indicador de carga
-```
-
-## 🎨 Sistema de Diseño
-
-### Modo Oscuro Automático
-```typescript
-const colorScheme = useColorScheme();
-const isDark = colorScheme === 'dark';
 ```
 
 #### Paleta de Colores

@@ -1,4 +1,5 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { services } from '../../ServiceContainer';
 
 export type ButtonType = 'Ventas' | 'Soporte Técnico' | 'Reclamación';
 
@@ -29,12 +30,15 @@ export const useButtonsForVSR = () => {
     setButtonPressed(prev => !prev);
   }, []);
 
-  const selectButtonType = useCallback((type: ButtonType) => {
+  const selectButtonType = useCallback(async (type: ButtonType) => {
     setSelectedButtonType(type);
     setButtons(prev => prev.map(btn => ({
       ...btn,
       isActive: btn.type === type,
     })));
+    
+    // Notificar al servicio de botones
+    services.buttons.activate(type);
   }, []);
 
   // API: Actualizar estado de botón desde servidor/IA

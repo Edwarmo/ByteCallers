@@ -1,8 +1,5 @@
-// UI Components
-export * from './ui';
-
 // Utilities
-export * from './lib/validation';
-export * from './lib/storage';
-export * from './lib/security';
-export * from './lib/constants';
+export * from './utils/validation';
+export * from './utils/storage';
+export * from './utils/security';
+export * from './utils/constants';
