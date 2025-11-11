@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { User } from '../../../../core/domain/entities/User';
-import { services } from '../../../ServiceContainer';
-import { LoginCredentials } from '../../../../core/domain/value-objects/LoginCredentials';
+import { container } from '../../../DIContainer-improved';
+import { useAuth } from '../../hooks/useAuth';
 
 interface LoginPageProps {
   onLoginSuccess: (user: User, token: string) => void;
 }
+
+const authController = container.getAuthController();
 
 export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState('');
@@ -22,6 +24,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       opacity: new Animated.Value(Math.random()),
     }))
   );
+
+  const { login, error } = useAuth(authController);
 
   useEffect(() => {
     Animated.spring(cardScale, {
@@ -51,21 +55,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
   const handleLogin = async () => {
     if (username && password) {
-      try {
-        const credentials = new LoginCredentials(username, password);
-        const result = await services.auth.login(credentials);
-        onLoginSuccess(result.user, result.token);
-      } catch (error) {
-        console.error('Login error:', error);
-        // Fallback: login directo
-        const mockUser: User = {
-          id: '1',
-          phoneNumber: username,
-          role: 'agent',
-          isBlocked: false,
-          failedAttempts: 0,
-        };
-        onLoginSuccess(mockUser, 'mock-token');
+      const result = await login(username, password);
+      if (result.success && result.user) {
+        onLoginSuccess(result.user, result.token || '');
       }
     }
   };
@@ -96,6 +88,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       
       <Animated.View style={[styles.card, { transform: [{ scale: cardScale }] }]}>
         <Text style={styles.title}>Login</Text>
+
+        {error && <Text style={styles.errorText}>{error}</Text>}
 
         <View style={styles.inputContainer}>
           <Text style={styles.inputIcon}>👤</Text>
@@ -138,12 +132,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleLogin} activeOpacity={0.8}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-      </Animated.View>
-    </View>
-  );
-};
+          <Text style={styles.buttonText}>Login</T
 
 const styles = StyleSheet.create({
   background: {

@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Call } from '../../../core/domain/entities/Call';
-import { services } from '../../ServiceContainer';
+import { container } from '../../DIContainer';
 
 export const useCall = () => {
+  const callService = container.getCallService();
   const [activeCall, setActiveCall] = useState<Call | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   const [isOnHold, setIsOnHold] = useState(false);
 
-  const controls = services.calls.controls();
+  const controls = callService.getControls();
 
   const receiveCall = async (phoneNumber: string, audioStreamUrl?: string) => {
-    const call = await services.calls.receive({
+    const call = await callService.receiveCall({
       id: Date.now().toString(),
       phoneNumber,
       audioStreamUrl,
@@ -51,7 +52,7 @@ export const useCall = () => {
   };
 
   useEffect(() => {
-    const current = services.calls.getActive();
+    const current = callService.getActiveCall();
     setActiveCall(current);
   }, []);
 

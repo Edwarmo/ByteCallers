@@ -1,6 +1,6 @@
 import { Ticket, TicketCategory, TicketStatus, TicketPriority, TicketHistoryEntry } from './Ticket';
 
-export class BaseTicket implements Ticket {
+export abstract class BaseTicket implements Ticket {
     id: string;
     customerId?: string;
     customerName?: string;

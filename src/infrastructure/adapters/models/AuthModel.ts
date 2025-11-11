@@ -5,6 +5,37 @@ export class AuthModel {
   private static readonly MAX_FAILED_ATTEMPTS = 3;
   private static readonly BLOCK_DURATION = 15 * 60 * 1000; // 15 minutos
 
+  private static SecurityManager = class {
+    constructor(
+      private maxAttempts: number,
+      private blockDuration: number
+    ) {}
+
+    isStillBlocked(user: User): boolean {
+      if (!user.lastFailedAttempt) return false;
+      const timeSinceLastAttempt = Date.now() - new Date(user.lastFailedAttempt).getTime();
+      return timeSinceLastAttempt < this.blockDuration;
+    }
+
+    async handleFailedAttempt(user: User): Promise<void> {
+      user.failedAttempts += 1;
+      user.lastFailedAttempt = new Date();
+      
+      if (user.failedAttempts >= this.maxAttempts) {
+        user.isBlocked = true;
+      }
+      
+      await StorageUtils.setItem(`user_${user.phoneNumber}`, JSON.stringify(user));
+    }
+
+    async resetFailedAttempts(user: User): Promise<void> {
+      user.failedAttempts = 0;
+      user.isBlocked = false;
+      user.lastFailedAttempt = undefined;
+      await StorageUtils.setItem(`user_${user.phoneNumber}`, JSON.stringify(user));
+    }
+  };
+
   static async login(credentials: LoginCredentials): Promise<{ success: boolean; message: string; user?: User; token?: string }> {
     try {
       // Simular fetch a base de datos
@@ -19,7 +50,9 @@ export class AuthModel {
         return { success: true, message: 'Usuario creado e ingreso exitoso', user, token };
       }
 
-      if (user.isBlocked && this.isStillBlocked(user)) {
+      const securityManager = new this.SecurityManager(this.MAX_FAILED_ATTEMPTS, this.BLOCK_DURATION);
+
+      if (user.isBlocked && securityManager.isStillBlocked(user)) {
         return { success: false, message: 'Cuenta bloqueada por seguridad. Espere 15 minutos o contacte al administrador.' };
       }
 
@@ -27,11 +60,11 @@ export class AuthModel {
       const isValidPassword = await this.verifyPassword(credentials.password, user.phoneNumber);
       
       if (!isValidPassword) {
-        await this.handleFailedAttempt(user);
+        await securityManager.handleFailedAttempt(user);
         return { success: false, message: 'Credenciales incorrectas' };
       }
 
-      await this.resetFailedAttempts(user);
+      await securityManager.resetFailedAttempts(user);
       const token = await this.generateToken(user);
       
       return { success: true, message: 'Login exitoso', user, token };
@@ -58,29 +91,7 @@ export class AuthModel {
     }
   }
 
-  private static isStillBlocked(user: User): boolean {
-    if (!user.lastFailedAttempt) return false;
-    const timeSinceLastAttempt = Date.now() - new Date(user.lastFailedAttempt).getTime();
-    return timeSinceLastAttempt < this.BLOCK_DURATION;
-  }
 
-  private static async handleFailedAttempt(user: User): Promise<void> {
-    user.failedAttempts += 1;
-    user.lastFailedAttempt = new Date();
-    
-    if (user.failedAttempts >= this.MAX_FAILED_ATTEMPTS) {
-      user.isBlocked = true;
-    }
-    
-    await StorageUtils.setItem(`user_${user.phoneNumber}`, JSON.stringify(user));
-  }
-
-  private static async resetFailedAttempts(user: User): Promise<void> {
-    user.failedAttempts = 0;
-    user.isBlocked = false;
-    user.lastFailedAttempt = undefined;
-    await StorageUtils.setItem(`user_${user.phoneNumber}`, JSON.stringify(user));
-  }
 
   private static async generateToken(user: User): Promise<string> {
     const token = `token_${user.id}_${Date.now()}`;

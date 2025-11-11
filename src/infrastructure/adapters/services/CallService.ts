@@ -1,4 +1,5 @@
 import { Call } from '../../../core/domain/entities/Call';
+import { BaseService } from './BaseService';
 
 export interface IncomingCallData {
   id: string;
@@ -7,76 +8,80 @@ export interface IncomingCallData {
   metadata?: Record<string, any>;
 }
 
-export interface CallControls {
-  mute: () => Promise<void>;
-  unmute: () => Promise<void>;
-  hold: () => Promise<void>;
-  resume: () => Promise<void>;
-  hangup: () => Promise<void>;
-  transfer: (targetNumber: string) => Promise<void>;
-}
-
-export class CallService {
+export class CallService extends BaseService {
+  protected serviceName = 'CallService';
   private activeCall: Call | null = null;
   private isMuted: boolean = false;
   private isOnHold: boolean = false;
 
+  private CallControls = class {
+    constructor(
+      private service: CallService
+    ) {}
+
+    async mute(): Promise<void> {
+      this.service.isMuted = true;
+      this.service.log('Call muted');
+    }
+
+    async unmute(): Promise<void> {
+      this.service.isMuted = false;
+      this.service.log('Call unmuted');
+    }
+
+    async hold(): Promise<void> {
+      this.service.isOnHold = true;
+      if (this.service.activeCall) {
+        this.service.activeCall.status = 'on-hold';
+      }
+      this.service.log('Call on hold');
+    }
+
+    async resume(): Promise<void> {
+      this.service.isOnHold = false;
+      if (this.service.activeCall) {
+        this.service.activeCall.status = 'active';
+      }
+      this.service.log('Call resumed');
+    }
+
+    async hangup(): Promise<void> {
+      if (this.service.activeCall) {
+        this.service.activeCall.status = 'completed';
+      }
+      this.service.activeCall = null;
+      this.service.isMuted = false;
+      this.service.isOnHold = false;
+      this.service.log('Call ended');
+    }
+
+    async transfer(targetNumber: string): Promise<void> {
+      if (this.service.activeCall) {
+        this.service.activeCall.status = 'transferring';
+      }
+      this.service.log(`Transferring call to ${targetNumber}`);
+    }
+  };
+
   async receiveCall(data: IncomingCallData): Promise<Call> {
-    const call: Call = {
-      id: data.id,
-      phoneNumber: data.phoneNumber,
-      type: 'Ventas',
-      status: 'active',
-      duration: 0,
-      aiConfidence: 50,
-      urgency: 'low',
-      timestamp: new Date(),
-    };
-    
-    this.activeCall = call;
-    return call;
+    return this.executeWithLogging('receiveCall', async () => {
+      const call: Call = {
+        id: data.id,
+        phoneNumber: data.phoneNumber,
+        type: 'Ventas',
+        status: 'active',
+        duration: 0,
+        aiConfidence: 50,
+        urgency: 'low',
+        timestamp: new Date(),
+      };
+      this.activeCall = call;
+      return call;
+    });
   }
 
-  getControls(): CallControls {
-    return {
-      mute: async () => {
-        this.isMuted = true;
-        console.log('Call muted');
-      },
-      unmute: async () => {
-        this.isMuted = false;
-        console.log('Call unmuted');
-      },
-      hold: async () => {
-        this.isOnHold = true;
-        if (this.activeCall) {
-          this.activeCall.status = 'on-hold';
-        }
-        console.log('Call on hold');
-      },
-      resume: async () => {
-        this.isOnHold = false;
-        if (this.activeCall) {
-          this.activeCall.status = 'active';
-        }
-        console.log('Call resumed');
-      },
-      hangup: async () => {
-        if (this.activeCall) {
-          this.activeCall.status = 'completed';
-        }
-        this.activeCall = null;
-        this.isMuted = false;
-        this.isOnHold = false;
-        console.log('Call ended');
-      },
-      transfer: async (targetNumber: string) => {
-        if (this.activeCall) {
-          this.activeCall.status = 'transferring';
-        }
-        console.log(`Transferring call to ${targetNumber}`);
-      },
-    };
+  getControls() {
+    return new this.CallControls(this);
   }
 
   getActiveCall(): Call | null {

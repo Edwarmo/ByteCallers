@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { User } from '../../../core/domain/entities/User';
-import { container } from '../../DIContainer';
+import { AuthController } from '../../adapters/controllers/AuthController';
 
-export const useAuth = () => {
-  const authController = container.getAuthController();
+// Hook desacoplado - recibe dependencias por parámetro
+export const useAuth = (authController: AuthController) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

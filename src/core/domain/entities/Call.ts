@@ -16,6 +16,14 @@ export interface Call {
 }
 
 export class CallEntity implements Call {
+  private UrgencyCalculator = class {
+    calculate(duration: number): CallUrgency {
+      if (duration > 300) return 'high';
+      if (duration > 150) return 'medium';
+      return 'low';
+    }
+  };
+
   constructor(
     public id: string,
     public phoneNumber: string,
@@ -38,17 +46,7 @@ export class CallEntity implements Call {
 
   updateDuration(seconds: number): void {
     this.duration = seconds;
-    this.updateUrgency();
-  }
-
-  private updateUrgency(): void {
-    if (this.duration > 300) {
-      this.urgency = 'high';
-    } else if (this.duration > 150) {
-      this.urgency = 'medium';
-    } else {
-      this.urgency = 'low';
-    }
+    this.urgency = new this.UrgencyCalculator().calculate(this.duration);
   }
 
   reclassify(newType: CallType): void {

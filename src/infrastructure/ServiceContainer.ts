@@ -1,19 +1,11 @@
-import { AuthController } from './adapters/controllers/AuthController';
-import { CallController } from './adapters/controllers/CallController';
-import { APIButtonController } from './adapters/services/APIButtonController';
-import { InMemoryUserRepository } from './adapters/repositories/InMemoryUserRepository';
-import { InMemoryCallRepository } from './adapters/repositories/InMemoryCallRepository';
-import { LoginUseCase } from '../core/application/usecases/auth/LoginUseCase';
-import { MockAuthService } from './adapters/services/MockAuthService';
-import { CallService } from './adapters/services/CallService';
+// DEPRECATED: Use DIContainer instead
+// This file is kept for backward compatibility only
+// All functionality has been moved to DIContainer.ts
+
+import { container } from './DIContainer';
 
 export class ServiceContainer {
   private static instance: ServiceContainer;
-  private userRepository = new InMemoryUserRepository();
-  private callRepository = new InMemoryCallRepository();
-  private authService = new MockAuthService();
-  private callService = new CallService();
-  private loginUseCase = new LoginUseCase(this.userRepository, this.authService);
 
   private constructor() {}
 
@@ -25,50 +17,42 @@ export class ServiceContainer {
   }
 
   get controllers() {
-    const authController = new AuthController(this.loginUseCase, this.userRepository);
-    const callController = new CallController();
     return {
-      auth: authController,
-      call: callController,
+      auth: container.getAuthController(),
+      call: container.getCallController(),
     };
   }
 
   get auth() {
+    const authController = container.getAuthController();
     return {
-      login: this.loginUseCase.execute.bind(this.loginUseCase),
-      logout: this.controllers.auth.handleLogout.bind(this.controllers.auth),
-      getCurrentUser: this.controllers.auth.getCurrentUser.bind(this.controllers.auth),
-      register: this.controllers.auth.registerUser.bind(this.controllers.auth),
+      login: container.getLoginUseCase().execute.bind(container.getLoginUseCase()),
+      logout: authController.handleLogout.bind(authController),
+      getCurrentUser: authController.getCurrentUser.bind(authController),
+      register: authController.registerUser.bind(authController),
     };
   }
 
   get repositories() {
     return {
-      users: this.userRepository,
-      calls: this.callRepository,
+      users: container.getUserRepository(),
+      calls: container.getCallRepository(),
     };
   }
 
   get calls() {
+    const callService = container.getCallService();
     return {
-      receive: this.callService.receiveCall.bind(this.callService),
-      getActive: this.callService.getActiveCall.bind(this.callService),
-      controls: this.callService.getControls.bind(this.callService),
-      isMuted: this.callService.isMutedStatus.bind(this.callService),
-      isOnHold: this.callService.isOnHoldStatus.bind(this.callService),
+      receive: callService.receiveCall.bind(callService),
+      getActive: callService.getActiveCall.bind(callService),
+      controls: callService.getControls.bind(callService),
+      isMuted: callService.isMutedStatus.bind(callService),
+      isOnHold: callService.isOnHoldStatus.bind(callService),
     };
   }
 
   get buttons() {
-    return {
-      activate: APIButtonController.activateButton,
-      disable: APIButtonController.disableButton,
-      update: APIButtonController.updateButton,
-      resetAll: APIButtonController.resetAll,
-      simulateClick: APIButtonController.simulateHumanClick,
-      sendCallInfo: APIButtonController.sendCallInfoToChatbot,
-      getCurrentCallInfo: APIButtonController.getCurrentCallInfo,
-    };
+    return container.getButtons();
   }
 }
 

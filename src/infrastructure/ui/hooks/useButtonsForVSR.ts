@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { services } from '../../ServiceContainer';
+import { container } from '../../DIContainer';
 
 export type ButtonType = 'Ventas' | 'Soporte Técnico' | 'Reclamación';
 
@@ -38,7 +38,7 @@ export const useButtonsForVSR = () => {
     })));
     
     // Notificar al servicio de botones
-    services.buttons.activate(type);
+    container.getButtons().activate(type);
   }, []);
 
   // API: Actualizar estado de botón desde servidor/IA

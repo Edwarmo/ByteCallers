@@ -1,9 +1,14 @@
-export class AIAssistantService {
+import { BaseService } from './BaseService';
+
+export class AIAssistantService extends BaseService {
+  protected serviceName = 'AIAssistantService';
+
   async getSuggestions(text: string): Promise<string[]> {
-    // Mock AI suggestions
-    return [
-      `Suggestion 1 for: ${text}`,
-      `Suggestion 2 for: ${text}`,
-    ];
+    return this.executeWithLogging('getSuggestions', async () => {
+      return [
+        `Suggestion 1 for: ${text}`,
+        `Suggestion 2 for: ${text}`,
+      ];
+    });
   }
 }

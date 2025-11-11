@@ -29,7 +29,7 @@ export class TicketModel {
   static async loadTickets(): Promise<Ticket[]> {
     try {
       const data = await StorageUtils.getItem('tickets');
-      this.tickets = data ? JSON.parse(data) : this.generateDemoTickets();
+      this.tickets = data ? JSON.parse(data).map((ticket: any) => ({...ticket, createdAt: new Date(ticket.createdAt), updatedAt: new Date(ticket.updatedAt)})) : this.generateDemoTickets();
       return this.tickets;
     } catch {
       this.tickets = this.generateDemoTickets();
