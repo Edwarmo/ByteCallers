@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿﻿import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, useColorScheme, ScrollView, useWindowDimensions } from 'react-native';
 import Card from '../shared/Card';
 import { BlurView } from 'expo-blur';
@@ -114,8 +114,10 @@ const Home: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    minHeight: '100vh' as any,
     backgroundColor: 'transparent',
     padding: 20,
+    justifyContent: 'center',
   },
   containerDark: {
     backgroundColor: 'transparent',

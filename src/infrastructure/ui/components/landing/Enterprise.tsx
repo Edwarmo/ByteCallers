@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿﻿import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, useColorScheme, Animated } from 'react-native';
 import Card from '../shared/Card';
 
@@ -60,7 +60,10 @@ const Enterprise: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
-    padding: 70,
+    minHeight: '100vh' as any,
+    justifyContent: 'center',
+    paddingVertical: 40,
+    paddingHorizontal: 20,
   },
   containerDark: {
     backgroundColor: 'transparent',

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿﻿import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
 import Input from '../shared/Input';
 import Button from '../shared/Button';
@@ -72,11 +72,14 @@ const ContactForm: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    minHeight: '100vh' as any,
+    justifyContent: 'center',
+  },
+  formWrapper: {
     backgroundColor: 'rgba(30, 41, 59, 0.6)',
     borderRadius: 12,
-    margin: 16,
-    marginTop: 90,
-    elevation: 2,
+    padding: 20,
+    marginHorizontal: 16,
     borderWidth: 1,
     borderColor: '#334155',
   },

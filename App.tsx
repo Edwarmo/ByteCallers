@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import './src/infrastructure/ui/styles/scrollbar.css';
-import './src/infrastructure/ui/styles/nightsky.css';
-import './src/infrastructure/ui/styles/client.css';
-import './src/infrastructure/ui/styles/system.css';
 import { AppRouter } from './src/infrastructure/AppRouter';
+import { View } from 'react-native';
 
 export default function App() {
-  return <AppRouter />;
+  return (
+    <View style={{ flex: 1, overflow: 'auto', height: '100%' }}>
+      <AppRouter />
+    </View>
+  );
 }

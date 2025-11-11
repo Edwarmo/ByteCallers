@@ -1,8 +1,9 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { User } from '../../../../core/domain/entities/User';
+import { Call, CallEntity } from '../../../../core/domain/entities/Call';
 import { AIAssistant } from '../../components/features/AIAssistant';
-import { services } from '../../../ServiceContainer';
+import { container } from '../../../DIContainer';
 import { SessionWarningModal } from '../../components/shared/SessionWarningModal';
 
 interface TicketsPageProps {
@@ -11,18 +12,8 @@ interface TicketsPageProps {
   onLogout: () => void;
 }
 
-interface CallAI {
-  id: string;
-  phoneNumber: string;
-  type: 'Ventas' | 'Soporte Técnico' | 'Reclamación';
-  status: 'active' | 'on-hold' | 'transferring';
-  duration: number;
-  aiConfidence: number;
-  urgency: 'high' | 'medium' | 'low';
-}
-
 export const TicketsPage: React.FC<TicketsPageProps> = ({ user, onBack, onLogout }) => {
-  const [calls, setCalls] = useState<CallAI[]>([]);
+  const [calls, setCalls] = useState<Call[]>([]);
   const [interventions, setInterventions] = useState<Set<string>>(new Set());
   const [takenCases, setTakenCases] = useState<Set<string>>(new Set());
   const [activeCallId, setActiveCallId] = useState<string | null>(null);
@@ -30,11 +21,11 @@ export const TicketsPage: React.FC<TicketsPageProps> = ({ user, onBack, onLogout
   const [showWarning, setShowWarning] = useState(false);
 
   useEffect(() => {
-    const mockCalls: CallAI[] = [
-      { id: '001', phoneNumber: '+57 300 111 2222', type: 'Ventas', status: 'active', duration: 345, aiConfidence: 65, urgency: 'high' },
-      { id: '002', phoneNumber: '+57 301 222 3333', type: 'Soporte Técnico', status: 'active', duration: 189, aiConfidence: 72, urgency: 'high' },
-      { id: '003', phoneNumber: '+57 302 333 4444', type: 'Reclamación', status: 'on-hold', duration: 534, aiConfidence: 58, urgency: 'high' },
-      { id: '004', phoneNumber: '+57 303 444 5555', type: 'Ventas', status: 'active', duration: 56, aiConfidence: 91, urgency: 'low' },
+    const mockCalls: Call[] = [
+      { id: '001', phoneNumber: '+57 300 111 2222', type: 'Ventas', status: 'active', duration: 345, aiConfidence: 65, urgency: 'high', timestamp: new Date(), description: 'Consulta sobre promociones' },
+      { id: '002', phoneNumber: '+57 301 222 3333', type: 'Soporte Técnico', status: 'active', duration: 189, aiConfidence: 72, urgency: 'high', timestamp: new Date(), description: 'Error al iniciar sesión' },
+      { id: '003', phoneNumber: '+57 302 333 4444', type: 'Reclamación', status: 'on-hold', duration: 534, aiConfidence: 58, urgency: 'high', timestamp: new Date(), description: 'Cobro duplicado' },
+      { id: '004', phoneNumber: '+57 303 444 5555', type: 'Ventas', status: 'active', duration: 56, aiConfidence: 91, urgency: 'low', timestamp: new Date(), description: 'Estado de pedido' },
     ].sort((a, b) => {
       if (a.urgency === 'high' && b.urgency !== 'high') return -1;
       if (a.urgency !== 'high' && b.urgency === 'high') return 1;
@@ -44,11 +35,11 @@ export const TicketsPage: React.FC<TicketsPageProps> = ({ user, onBack, onLogout
     setCalls(mockCalls);
     
     const interval = setInterval(() => {
-      setCalls(prev => prev.map(call => ({
-        ...call,
-        duration: call.duration + 1,
-        urgency: call.duration > 300 ? 'high' : call.duration > 150 ? 'medium' : 'low'
-      })).sort((a, b) => {
+      setCalls(prev => prev.map(callData => {
+        const call = new CallEntity(callData.id, callData.phoneNumber, callData.type, callData.status, callData.duration, callData.aiConfidence, callData.urgency, callData.timestamp, callData.description);
+        call.updateDuration(call.duration + 1);
+        return { ...call }; // Convertir la entidad de nuevo a un objeto plano para el estado
+      }).sort((a, b) => {
         if (a.urgency === 'high' && b.urgency !== 'high') return -1;
         if (a.urgency !== 'high' && b.urgency === 'high') return 1;
         return b.duration - a.duration;
@@ -95,7 +86,7 @@ export const TicketsPage: React.FC<TicketsPageProps> = ({ user, onBack, onLogout
         customerData: 'Información no disponible'
       };
 
-      services.buttons.sendCallInfo({
+      container.getButtons().sendCallInfo({
         callId: callId,
         phoneNumber: call.phoneNumber,
         type: call.type,
@@ -122,7 +113,7 @@ export const TicketsPage: React.FC<TicketsPageProps> = ({ user, onBack, onLogout
     console.log(`Acción ${action} en llamada:`, callId);
   };
 
-  const handleReclassify = (callId: string, newType: CallAI['type']) => {
+  const handleReclassify = (callId: string, newType: Call['type']) => {
     setCalls(prev => prev.map(call => 
       call.id === callId ? { ...call, type: newType } : call
     ));
@@ -566,5 +557,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '600',
     color: '#ffffff',
+  },
+  errorText: {
+    color: '#ef4444',
+    textAlign: 'center',
+    marginBottom: 15,
+    fontSize: 14,
+    fontWeight: '500',
   },
 });

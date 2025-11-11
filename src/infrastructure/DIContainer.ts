@@ -35,7 +35,7 @@ export class DIContainer {
     this.interveneCallUseCase = new InterveneCallUseCase(this.callRepository);
     this.updateContextUseCase = new UpdateContextUseCase(this.callRepository);
     this.authController = new AuthController(this.loginUseCase, this.userRepository);
-    this.callController = new CallController();
+    this.callController = new CallController(this.callRepository);
   }
 
   static getInstance(): DIContainer {

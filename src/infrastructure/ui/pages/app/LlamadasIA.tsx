@@ -1,36 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-
-interface CallAI {
-  id: string;
-  phoneNumber: string;
-  type: 'Ventas' | 'Soporte Técnico' | 'Reclamación';
-  status: 'active' | 'on-hold' | 'transferring';
-  duration: number;
-  aiConfidence: number;
-}
+import { Call, CallEntity } from '../../../../core/domain/entities/Call';
 
 export const LlamadasIA: React.FC = () => {
-  const [calls, setCalls] = useState<CallAI[]>([]);
+  const [calls, setCalls] = useState<Call[]>([]);
   const [interventions, setInterventions] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     // Mock: Llamadas siendo atendidas por IA
-    const mockCalls: CallAI[] = [
-      { id: '001', phoneNumber: '+57 300 111 2222', type: 'Ventas', status: 'active', duration: 145, aiConfidence: 95 },
-      { id: '002', phoneNumber: '+57 301 222 3333', type: 'Soporte Técnico', status: 'active', duration: 89, aiConfidence: 87 },
-      { id: '003', phoneNumber: '+57 302 333 4444', type: 'Reclamación', status: 'on-hold', duration: 234, aiConfidence: 72 },
-      { id: '004', phoneNumber: '+57 303 444 5555', type: 'Ventas', status: 'active', duration: 56, aiConfidence: 91 },
+    const mockCalls: Call[] = [
+      { id: '001', phoneNumber: '+57 300 111 2222', type: 'Ventas', status: 'active', duration: 145, aiConfidence: 95, urgency: 'medium' },
+      { id: '002', phoneNumber: '+57 301 222 3333', type: 'Soporte Técnico', status: 'active', duration: 89, aiConfidence: 87, urgency: 'low' },
+      { id: '003', phoneNumber: '+57 302 333 4444', type: 'Reclamación', status: 'on-hold', duration: 234, aiConfidence: 72, urgency: 'medium' },
+      { id: '004', phoneNumber: '+57 303 444 5555', type: 'Ventas', status: 'active', duration: 56, aiConfidence: 91, urgency: 'low' },
     ];
     
     setCalls(mockCalls);
     
     // Actualizar duración cada segundo
     const interval = setInterval(() => {
-      setCalls(prev => prev.map(call => ({
-        ...call,
-        duration: call.duration + 1,
-      })));
+      setCalls(prev => prev.map(callData => {
+        const call = new CallEntity(callData.id, callData.phoneNumber, callData.type, callData.status, callData.duration, callData.aiConfidence, callData.urgency, callData.timestamp, callData.description);
+        call.updateDuration(call.duration + 1);
+        return { ...call };
+      }));
     }, 1000);
     
     return () => clearInterval(interval);
@@ -44,7 +37,7 @@ export const LlamadasIA: React.FC = () => {
     console.log(`Acción ${action} en llamada:`, callId);
   };
 
-  const handleReclassify = (callId: string, newType: CallAI['type']) => {
+  const handleReclassify = (callId: string, newType: Call['type']) => {
     setCalls(prev => prev.map(call => 
       call.id === callId ? { ...call, type: newType } : call
     ));

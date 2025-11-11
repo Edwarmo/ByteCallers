@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿﻿import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Animated } from 'react-native';
 
 const demos = [
@@ -137,9 +137,10 @@ const AIShowcase: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
-    paddingVertical: 70,
+    minHeight: '100vh' as any,
+    justifyContent: 'center',
+    paddingVertical: 40,
     paddingHorizontal: 20,
-    marginBottom: 40,
   },
   title: {
     fontSize: 32,
@@ -191,7 +192,6 @@ const styles = StyleSheet.create({
     padding: 24,
     borderRadius: 12,
     marginTop: 20,
-    marginHorizontal: 20,
     borderWidth: 1,
     borderColor: '#334155',
   },

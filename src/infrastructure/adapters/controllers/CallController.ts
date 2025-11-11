@@ -1,8 +1,8 @@
 import { Call } from '../../../core/domain/entities/Call';
-import { services } from '../../ServiceContainer';
+import { ICallRepository } from '../../../core/domain/ports/repositories/ICallRepository';
 
 export class CallController {
-  constructor() {}
+  constructor(private callRepository: ICallRepository) {}
 
   async handleIncomingCall(phoneNumber: string, description?: string): Promise<Call> {
     const call: Call = {
@@ -16,32 +16,32 @@ export class CallController {
       urgency: 'low',
       description
     };
-    await services.repositories.calls.save(call);
+    await this.callRepository.save(call);
     return call;
   }
 
   async getAllCalls(): Promise<Call[]> {
-    return await services.repositories.calls.findAll();
+    return await this.callRepository.findAll();
   }
 
   async acceptCall(callId: string): Promise<void> {
-    const call = await services.repositories.calls.findById(callId);
+    const call = await this.callRepository.findById(callId);
     if (call) {
       call.status = 'active';
-      await services.repositories.calls.update(call);
+      await this.callRepository.update(call);
     }
   }
 
   async completeCall(callId: string): Promise<void> {
-    const call = await services.repositories.calls.findById(callId);
+    const call = await this.callRepository.findById(callId);
     if (call) {
       call.status = 'completed';
-      await services.repositories.calls.update(call);
+      await this.callRepository.update(call);
     }
   }
 
   async getCallsByType(type: Call['type']): Promise<Call[]> {
-    const allCalls = await services.repositories.calls.findAll();
+    const allCalls = await this.callRepository.findAll();
     return allCalls.filter(call => call.type === type);
   }
 }

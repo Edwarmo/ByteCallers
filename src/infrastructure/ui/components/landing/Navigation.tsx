@@ -116,7 +116,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onSectionChange
   return (
     <>
       <View style={styles.header}>
-        <BlurView intensity={80} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFill} />
+        <BlurView intensity={90} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFill} />
         <View style={styles.container}>
           <Text style={[styles.logo, isDark && styles.logoDark]}>ByteCallers</Text>
           {isMobile ? (
@@ -197,12 +197,12 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     height: 70,
-    zIndex: 1000,
-    position: 'relative',
     ...Platform.select({
       web: { position: 'sticky' as any, top: 0 },
       default: { position: 'relative' },
     }),
+    zIndex: 10,
+    backgroundColor: 'rgba(0,0,0,0)',
   },
   container: {
     flexDirection: 'row',

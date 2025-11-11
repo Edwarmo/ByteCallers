@@ -100,7 +100,9 @@ const Solutions: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'transparent',
-    paddingVertical: 70,
+    minHeight: '100vh' as any,
+    justifyContent: 'center',
+    paddingVertical: 40,
   },
   containerDark: {
     backgroundColor: 'transparent',
