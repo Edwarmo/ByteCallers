@@ -1,0 +1,51 @@
+/* Scrollbar personalizado para web */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0);
+  border-radius: 5px;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.6);
+}
+
+/* Auto-show scrollbar on scroll */
+*:hover::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: rgba(148, 163, 184, 0.7);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+}
+
+/* Scrollbar visible en móvil */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.6);
+  }
+  
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.6) transparent;
+  }
+}

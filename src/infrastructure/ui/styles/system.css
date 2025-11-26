@@ -1,0 +1,118 @@
+/* ========================================
+   ESTILOS DEL SISTEMA - DASHBOARD
+   ======================================== */
+
+/* Fondo claro del sistema */
+.system-background {
+  background: #f0f4f8;
+}
+
+/* Colores del sistema */
+:root {
+  --system-primary: #8b5cf6;
+  --system-secondary: #06b6d4;
+  --system-success: #10b981;
+  --system-danger: #ef4444;
+  --system-warning: #f59e0b;
+  --system-bg-light: #f0f4f8;
+  --system-bg-white: rgba(255, 255, 255, 0.9);
+  --system-text-dark: #1e293b;
+  --system-text-medium: #64748b;
+  --system-text-light: #94a3b8;
+  --system-border: rgba(139, 92, 246, 0.2);
+}
+
+/* Tarjetas del sistema */
+.system-card {
+  background: var(--system-bg-white);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--system-border);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
+}
+
+/* Botones del sistema */
+.system-button {
+  background: var(--system-primary);
+  color: #fff;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.system-button:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.system-button-secondary {
+  background: var(--system-secondary);
+}
+
+.system-button-danger {
+  background: var(--system-danger);
+}
+
+.system-button-success {
+  background: var(--system-success);
+}
+
+/* Header del sistema */
+.system-header {
+  background: var(--system-bg-white);
+  border-bottom: 1px solid var(--system-border);
+  padding: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.system-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--system-text-dark);
+}
+
+/* KPI Cards */
+.system-kpi-card {
+  background: var(--system-bg-white);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid var(--system-border);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
+}
+
+.system-kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--system-text-dark);
+}
+
+.system-kpi-label {
+  font-size: 12px;
+  color: var(--system-text-medium);
+}
+
+/* Badges */
+.system-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.system-badge-success {
+  background: var(--system-success);
+}
+
+.system-badge-warning {
+  background: var(--system-warning);
+}
+
+.system-badge-danger {
+  background: var(--system-danger);
+}
+
+.system-badge-primary {
+  background: var(--system-primary);
+}
